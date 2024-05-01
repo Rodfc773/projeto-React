@@ -3,13 +3,17 @@ import { Route, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import PropTypes from 'prop-types';
 
 export default function MyRoute({ component: Component, isClosed, ...rest }) {
-  const isLoggedIn = false;
+  const isClientLogged = false;
 
-  if (!permission(isLoggedIn, isClosed)) {
-    return redirectPage(false, rest, Component);
+  if (!isClientLogged && isClosed) {
+    return (
+      <Redirect
+        to={{ pathname: '/login', state: { prevPath: rest.location.pathname } }}
+      />
+    );
+  } else {
+    return <Route {...rest} component={Component} />;
   }
-
-  return redirectPage(true, rest, Component);
 }
 
 function permission(isClientLogged, isComponentClosed) {
@@ -27,7 +31,7 @@ function redirectPage(permission, rest, Component) {
     />
   );
 }
-MyRoute.defaltProps = {
+MyRoute.defaultProps = {
   isClosed: false,
 };
 

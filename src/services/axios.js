@@ -1,5 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'http://35.199.127.3:81',
+  // eslint-disable-next-line no-undef
+  baseURL: process.env.REACT_APP_API_URL,
 });

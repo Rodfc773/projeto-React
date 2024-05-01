@@ -6,14 +6,12 @@ import { useSelector } from 'react-redux';
 import { Nav } from './styled';
 
 export default function Header() {
-  const clickedButton = useSelector((state) => state.example.buttonWasClicked);
-
   return (
     <Nav>
-      <Link to="/">
+      <Link to={'/'}>
         <FaHome size={24} />
       </Link>
-      <Link to="/Register">
+      <Link to={'/Register'}>
         <FaSignInAlt size={24} />
       </Link>
       <Link to="/Login">

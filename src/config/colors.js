@@ -1,4 +1,4 @@
-export const primaryColor = '#C3073F';
+export const primaryColor = '#B22222';
 export const primaryDarkColor = '#1A1A1D';
 
 export const defaultTextColor = '#000';

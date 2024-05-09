@@ -1,21 +1,40 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
+import { get } from 'lodash';
 
 import { Form } from './styled';
 import { Container } from '../../styles/GlobalStyle';
+import axios from '../../services/axios';
+import history from '../../services/history';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const errors = formErrors();
+    const dataErrors = formErrors();
 
-    if (errors.length > 0) {
-      errors.map((err) => toast.error(err));
+    if (dataErrors.length > 0) {
+      dataErrors.map((err) => toast.error(err));
+      return;
+    }
+
+    try {
+      const response = await axios.post('/users/', {
+        nome,
+        password,
+        email,
+      });
+
+      toast.success('Register was complete without problems! Welcome');
+      history.push('/login');
+    } catch (error) {
+      const responseErros = get(error, 'response.data.erros', []);
+
+      responseErros.map((err) => toast.error(err));
     }
   }
 

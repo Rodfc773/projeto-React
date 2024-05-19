@@ -5,5 +5,5 @@ export const defaultTextColor = '#000';
 
 export const sucessColor = '#0197F6';
 export const infoColor = '#0197F6';
-export const errorColor = '#F2AF29';
+export const errorColor = '#FFCD07';
 export const warningColor = 'FFA500';

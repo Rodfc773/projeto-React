@@ -36,8 +36,11 @@ export default function Students() {
             <span>{student.nome}</span>
             <span>{student.sobrenome}</span>
 
-            <Link to={`/aluno/${student.id}`}>
+            <Link to={`/student/`}>
               <FaEdit size={16} />
+            </Link>
+            <Link to={`/student/`}>
+              <FaWindowClose size={16} />
             </Link>
           </div>
         ))}

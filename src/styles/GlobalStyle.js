@@ -38,14 +38,17 @@ a {
 
 }
 ul{
-  list-style:none
+  list-style:none;
 }
 
 body .Toastify .Toastify__toast-container .Toastify__toast--success{
-  background: ${colors.sucessColor}
+  background: ${colors.sucessColor};
+  color: white;
+
 }
 body .Toastify .Toastify__toast-container .Toastify__toast--error{
-  background: ${colors.errorColor}
+  background: ${colors.errorColor};
+  color:black;
 }
 `;
 

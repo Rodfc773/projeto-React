@@ -1,3 +1,4 @@
+import { func } from 'prop-types';
 import * as types from '../types';
 
 export function loginRequest(payload) {
@@ -22,6 +23,24 @@ export function loginSuccess(payload) {
 export function registerRequest(payload) {
   return {
     type: types.REGISTER_REQUEST,
+    payload,
+  };
+}
+export function registerSuccess(payload) {
+  return {
+    type: types.REGISTER_SUCCESS,
+    payload,
+  };
+}
+export function registerUpdateSuccess(payload) {
+  return {
+    type: types.REGISTER_UPDATE_SUCCESS,
+    payload,
+  };
+}
+export function registerFailure(payload) {
+  return {
+    type: types.REGISTER_FAILURE,
     payload,
   };
 }

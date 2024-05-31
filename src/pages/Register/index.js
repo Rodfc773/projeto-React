@@ -10,7 +10,7 @@ import * as actios from '../../store/modules/auth/action';
 
 export default function Register() {
   const dispacth = useDispatch();
-  const idStored = useSelector((state) => state.auth.user.id);
+  const id = useSelector((state) => state.auth.user.id);
   const nameStored = useSelector((state) => state.auth.user.nome);
   const emailStored = useSelector((state) => state.auth.user.email);
   const isLoading = useSelector((state) => state.auth.isLoading);
@@ -20,11 +20,11 @@ export default function Register() {
   const [password, setPassword] = useState('');
 
   React.useEffect(() => {
-    if (!idStored) return;
+    if (!id) return;
 
     setEmail(emailStored);
     setNome(nameStored);
-  }, [emailStored, idStored, nameStored]);
+  }, [id, nameStored, emailStored]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -34,6 +34,8 @@ export default function Register() {
       dataErrors.map((err) => toast.error(err));
       return;
     }
+
+    dispacth(actios.registerRequest({ nome, email, password, id }));
   }
 
   function formErrors() {
@@ -41,7 +43,7 @@ export default function Register() {
     if (nome.length < 3 || nome.length > 255)
       errors.push("Your name isn't valid!");
 
-    if (!idStored && (password.length < 6 || password.length > 50))
+    if (!id && (password.length < 6 || password.length > 50))
       errors.push("Your password don't met the requirements!");
 
     if (!isEmail(email)) errors.push("Your Email isn't valid!");
@@ -52,7 +54,7 @@ export default function Register() {
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <h1>{idStored ? 'Edit your profile' : 'Register your New Account!!!'}</h1>
+      <h1>{id ? 'Edit your profile' : 'Register your New Account!!!'}</h1>
 
       <Form onSubmit={handleSubmit}>
         <label htmlFor="Name">
@@ -84,7 +86,7 @@ export default function Register() {
         </label>
 
         <button type="submit">
-          {idStored ? 'Save informations' : 'Create Account'}
+          {id ? 'Save informations' : 'Create Account'}
         </button>
       </Form>
     </Container>

@@ -9,10 +9,9 @@ import {
 } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-import { Title, ProfilePicture } from './styled';
+import { Title, ProfilePicture, StudentsContainer, NewStudent } from './styled';
 import { Container } from '../../styles/GlobalStyle';
 import axios from '../../services/axios';
-import { StudentsContainer } from './styled';
 import Loading from '../../components/Loading';
 
 export default function Students() {
@@ -63,6 +62,8 @@ export default function Students() {
     <Container>
       <Loading isLoading={isLoading} />
       <Title>Students</Title>
+
+      <NewStudent to="/student/">New student</NewStudent>
       <StudentsContainer>
         {students.map((student, index) => (
           <div key={String(student.id)}>

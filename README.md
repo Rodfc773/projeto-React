@@ -19,5 +19,5 @@ The aim of this project is purely educational, so this user can learn about the 
 
 The REST API that this front-end project consumes has also been built for this user's learning purposes, and will be made available in the future, and like this application, will also be documented.
 
-At this date (21/05/2024) the front-end side is not concluded yet
+At this date (24/06/2024) the front-end side is not concluded yet
 

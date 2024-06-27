@@ -1,11 +1,13 @@
 import { Title, Paragraph, Form } from './styled';
 import { Container } from '../../styles/GlobalStyle';
-import { get, last } from 'lodash';
-import PropTypes from 'prop-types';
+import { get, last, set } from 'lodash';
+import PropTypes, { func } from 'prop-types';
 import axios from '../../services/axios';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import { isFloat, isInt } from 'validator';
+import { toast } from 'react-toastify';
+import History from '../../services/history';
 
 export default function Student({ match }) {
   const id = get(match, 'params.id', 0);
@@ -15,13 +17,45 @@ export default function Student({ match }) {
   const [height, setHeight] = useState('');
   const [age, setAge] = useState('');
   const [weight, setWeight] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+
+    async function getData() {
+      try {
+        setIsLoading(true);
+        const { data } = await axios.get(`/studente/${id}`);
+        const profilePic = get(data, 'files[0].url', '');
+
+        setEmail(data.email);
+        setName(data.nome);
+        setAge(data.idade);
+        setLastName(data.sobrenome);
+        setHeight(data.altura);
+        setWeight(data.peso);
+      } catch (error) {
+        setIsLoading(false);
+        const status = get(error, 'response.status', 0);
+        const errors = get(error, 'response.data.errors', []);
+
+        if (status === 400) errors.map((err) => toast.error(err));
+        History.push('/');
+      }
+    }
+
+    getData();
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formErrors = fieldsValidator();
 
-    if (formErrors.length > 0) return;
+    if (formErrors.length > 0) {
+      formErrors.map((error) => toast.error(error));
+      return;
+    }
   };
 
   const fieldsValidator = () => {
@@ -53,7 +87,7 @@ export default function Student({ match }) {
 
   return (
     <Container>
-      <h1>{id ? 'Edit student' : 'New student'}</h1>
+      <Title>{id ? 'Edit student' : 'New student'}</Title>
 
       <Form onSubmit={handleSubmit}>
         <input
@@ -75,7 +109,7 @@ export default function Student({ match }) {
           placeholder="Student's Email"
         />
         <input
-          type="text"
+          type="number"
           value={age}
           onChange={(e) => setAge(e.target.value)}
           placeholder="Student's age"

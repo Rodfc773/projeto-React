@@ -21,15 +21,15 @@ export default function Header() {
   return (
     <Nav>
       <Link to={'/'}>
-        <FaHome size={24} />
+        <FaHome size={36} />
       </Link>
       {isLoggedIn ? (
         <Link to={'/register'}>
-          <FaUserCircle size={24} />
+          <FaUserCircle size={36} />
         </Link>
       ) : (
         <Link to={'/register'}>
-          <FaIdCard size={24} />
+          <FaIdCard size={36} />
         </Link>
       )}
 

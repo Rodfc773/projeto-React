@@ -1,13 +1,15 @@
+import React, { useEffect, useState } from 'react';
 import { Title, Paragraph, Form } from './styled';
 import { Container } from '../../styles/GlobalStyle';
-import { get, last, set } from 'lodash';
+import { get } from 'lodash';
 import PropTypes, { func } from 'prop-types';
 import axios from '../../services/axios';
-import React, { useEffect, useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import { isFloat, isInt } from 'validator';
 import { toast } from 'react-toastify';
 import History from '../../services/history';
+import * as actions from '../../store/modules/auth/action';
+import { useDispatch } from 'react-redux';
 
 export default function Student({ match }) {
   const id = get(match, 'params.id', 0);
@@ -19,13 +21,15 @@ export default function Student({ match }) {
   const [weight, setWeight] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!id) return;
 
     async function getData() {
       try {
         setIsLoading(true);
-        const { data } = await axios.get(`/studente/${id}`);
+        const { data } = await axios.get(`/students/${id}`);
         const profilePic = get(data, 'files[0].url', '');
 
         setEmail(data.email);
@@ -41,13 +45,15 @@ export default function Student({ match }) {
 
         if (status === 400) errors.map((err) => toast.error(err));
         History.push('/');
+      } finally {
+        setIsLoading(false);
       }
     }
 
     getData();
   }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formErrors = fieldsValidator();
@@ -55,6 +61,42 @@ export default function Student({ match }) {
     if (formErrors.length > 0) {
       formErrors.map((error) => toast.error(error));
       return;
+    }
+
+    try {
+      if (id) {
+        await axios.put(`/students/${id}`, {
+          name,
+          lastName,
+          email,
+          age,
+          weight,
+          height,
+        });
+        toast.success('Student edited with success');
+      } else {
+        const { data } = await axios.post(`/students/`, {
+          name,
+          lastName,
+          email,
+          age,
+          weight,
+          height,
+        });
+        toast.success('Student registered with success');
+        History.push(`/student/${data.id}/edit`);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      const responseStats = get(error, 'response.status', 0);
+      const data = get(error, 'respopnse.data', {});
+      const errors = get(data, 'errors', []);
+
+      if (errors.length > 0) errors.map((error) => toast.error(error));
+      if (responseStats === 401) {
+        dispatch(actions.registerFailure());
+        toast.error(`You're not connect in your account`);
+      }
     }
   };
 
@@ -76,10 +118,10 @@ export default function Student({ match }) {
     if (!isInt(age))
       fieldsErrors.push('The field age have to be a integer number');
 
-    if (!weight && !isFloat(weight))
+    if (weight && !isFloat(weight))
       fieldsErrors.push('The field weight have to be a float number');
 
-    if (!height && !isFloat(height))
+    if (height && !isFloat(height))
       fieldsErrors.push('The field height have to be a float number');
 
     return fieldsErrors;
@@ -89,7 +131,7 @@ export default function Student({ match }) {
     <Container>
       <Title>{id ? 'Edit student' : 'New student'}</Title>
 
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <input
           type="text"
           value={name}
@@ -127,8 +169,8 @@ export default function Student({ match }) {
           placeholder="Student's weight"
         />
 
-        <button type="submit">
-          {id ? 'Edit new student' : 'Create new student'}
+        <button type="submit" onClick={handleSubmit}>
+          {id ? 'Edit Student' : 'Create Student'}
         </button>
       </Form>
     </Container>

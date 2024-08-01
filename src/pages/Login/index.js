@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
 import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
-
-import { Title, Paragraph } from './styled';
 import { Container } from '../../styles/GlobalStyle';
-import axios from '../../services/axios';
-import { Form } from './styled';
+
+import { Form, Title } from './styled';
 import * as actions from '../../store/modules/auth/action';
 
 export default function Login(props) {
@@ -42,7 +40,7 @@ export default function Login(props) {
   }
   return (
     <Container>
-      <h1>Login</h1>
+      <Title>Login</Title>
 
       <Form>
         <input

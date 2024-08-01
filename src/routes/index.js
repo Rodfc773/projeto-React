@@ -13,8 +13,8 @@ export default function Routes() {
   return (
     <Switch>
       <MyRoute exact path="/" component={Students} />
-      <MyRoute exact path="/student/:id/edit" component={Student} isClosed />
-      <MyRoute exact path="/student/" component={Student} isClosed />
+      <MyRoute exact path="/student/edit/:id" component={Student} isClosed />
+      <MyRoute exact path="/student/" component={Student} isClosed={false} />
       <MyRoute exact path="/photo/:id" component={Photos} isClosed />
       <MyRoute exact path="/login" component={Login} isClosed={false} />
       <MyRoute exact path="/register" component={Register} isClosed={false} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, noConflict } from 'lodash';
+import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import {
   FaUserCircle,
@@ -7,6 +7,7 @@ import {
   FaWindowClose,
   FaExclamation,
 } from 'react-icons/fa';
+import { CiCirclePlus } from 'react-icons/ci';
 import { toast } from 'react-toastify';
 
 import { Title, ProfilePicture, StudentsContainer, NewStudent } from './styled';
@@ -63,7 +64,10 @@ export default function Students() {
       <Loading isLoading={isLoading} />
       <Title>Students</Title>
 
-      <NewStudent to="/student/">New student</NewStudent>
+      <NewStudent to="/student/">
+        <CiCirclePlus fontSize={16} />
+        New Student
+      </NewStudent>
       <StudentsContainer>
         {students.map((student, index) => (
           <div key={String(student.id)}>
@@ -77,7 +81,7 @@ export default function Students() {
             <span>{student.nome}</span>
             <span>{student.sobrenome}</span>
 
-            <Link to={`/student/`}>
+            <Link to={`/student/edit/:id`}>
               <FaEdit size={16} />
             </Link>
             <Link

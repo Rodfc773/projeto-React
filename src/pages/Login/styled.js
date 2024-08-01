@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 import * as colors from '../../config/colors';
 
-export const Paragraph = styled.p`
-  font-size: 80px;
+export const Title = styled.h1`
+  text-align: center;
 `;
 
 export const Form = styled.form`

@@ -14,5 +14,13 @@ export const Form = styled.form`
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 0 10px;
+
+    :focus {
+      background-color: rgba(0.6, 0.1, 0.1, 0.7);
+    }
   }
+`;
+export const Title = styled.h1`
+  text-align: center;
+  margin-bottom: 10 px;
 `;

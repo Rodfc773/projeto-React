@@ -33,4 +33,5 @@ export const NewStudent = styled(Link)`
   display: block;
   padding: 10px;
   text-align: center;
+  font-size: 1.2em;
 `;

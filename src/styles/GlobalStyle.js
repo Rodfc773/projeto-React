@@ -6,13 +6,14 @@ import * as colors from '../config/colors';
 export default createGlobalStyle`margin: 0;
 *{
   padding: 0;
+  margin: 0;
   outline: none;
   box-sizing: border-box;
 }
 
 body{
   font-family:sans-serif;
-  background-color: ${colors.primaryDarkColor};
+  background-color: ${colors.grayColor};
   color: ${colors.defaultTextColor}
 
 }

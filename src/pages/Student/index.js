@@ -76,15 +76,15 @@ export default function Student({ match }) {
         toast.success('Student edited with success');
       } else {
         const { data } = await axios.post(`/students/`, {
-          name,
-          lastName,
-          email,
-          age,
-          weight,
-          height,
+          nome: name,
+          sobrenome: lastName,
+          email: email,
+          idade: age,
+          peso: weight,
+          altura: height,
         });
         toast.success('Student registered with success');
-        History.push(`/student/${data.id}/edit`);
+        History.push(`/student/edit/${data.id}`);
       }
       setIsLoading(false);
     } catch (error) {

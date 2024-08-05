@@ -81,14 +81,14 @@ export default function Students() {
             <span>{student.nome}</span>
             <span>{student.sobrenome}</span>
 
-            <Link to={`/student/edit/:id`}>
+            <Link to={`/student/edit/${student.id}`}>
               <FaEdit size={16} />
             </Link>
             <Link
               onClick={handleFirstStepDelete}
               to={`/student/${student.id}/delete`}
             >
-              <FaWindowClose size={16} />
+              <FaWindowClose size={16} color="red" />
             </Link>
 
             <FaExclamation

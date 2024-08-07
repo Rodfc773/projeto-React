@@ -4,7 +4,7 @@ import { FaArrowRightFromBracket, FaIdCard } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Nav } from './styled';
+import { Nav, RightDiv } from './styled';
 import * as actions from '../../store/modules/auth/action';
 import history from '../../services/history';
 
@@ -21,27 +21,29 @@ export default function Header() {
   return (
     <Nav>
       <Link to={'/'}>
-        <FaHome size={36} />
+        <FaHome size={36} /> <p>Home</p>
       </Link>
-      {isLoggedIn ? (
-        <Link to={'/register'}>
-          <FaUserCircle size={36} />
-        </Link>
-      ) : (
-        <Link to={'/register'}>
-          <FaIdCard size={36} />
-        </Link>
-      )}
+      <RightDiv>
+        {isLoggedIn ? (
+          <Link to={'/register'}>
+            <FaUserCircle size={36} />
+          </Link>
+        ) : (
+          <Link to={'/register'}>
+            <FaIdCard size={36} />
+          </Link>
+        )}
 
-      {isLoggedIn ? (
-        <Link onClick={handleClick} to="">
-          <FaArrowRightFromBracket size={24} />
-        </Link>
-      ) : (
-        <Link to="/login">
-          <FaSignInAlt size={24} />
-        </Link>
-      )}
+        {isLoggedIn ? (
+          <Link onClick={handleClick} to="">
+            <FaArrowRightFromBracket size={36} />
+          </Link>
+        ) : (
+          <Link to="/login">
+            <FaSignInAlt size={36} />
+          </Link>
+        )}
+      </RightDiv>
     </Nav>
   );
 }

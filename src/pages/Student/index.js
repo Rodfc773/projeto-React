@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Title, Paragraph, Form } from './styled';
-import { Container } from '../../styles/GlobalStyle';
 import { get } from 'lodash';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
 import PropTypes, { func } from 'prop-types';
-import axios from '../../services/axios';
 import isEmail from 'validator/lib/isEmail';
 import { isFloat, isInt } from 'validator';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { Title, Paragraph, Form, ProfilePicture } from './styled';
+import { Container } from '../../styles/GlobalStyle';
+import axios from '../../services/axios';
 import History from '../../services/history';
 import * as actions from '../../store/modules/auth/action';
-import { useDispatch } from 'react-redux';
-
 export default function Student({ match }) {
   const id = get(match, 'params.id', 0);
   const [name, setName] = useState('');
@@ -20,6 +22,7 @@ export default function Student({ match }) {
   const [age, setAge] = useState('');
   const [weight, setWeight] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [photo, setPhoto] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -31,6 +34,8 @@ export default function Student({ match }) {
         setIsLoading(true);
         const { data } = await axios.get(`/students/${id}`);
         const profilePic = get(data, 'files[0].url', '');
+
+        setPhoto(profilePic);
 
         setEmail(data.email);
         setName(data.nome);
@@ -131,6 +136,14 @@ export default function Student({ match }) {
     <Container>
       <Title>{id ? 'Edit student' : 'New student'}</Title>
 
+      {id && (
+        <ProfilePicture>
+          {photo ? <img src={photo} alt={name} /> : <FaUserCircle size={180} />}
+          <Link to={`/files/${id}`}>
+            <FaEdit size={24} />
+          </Link>
+        </ProfilePicture>
+      )}
       <Form>
         <input
           type="text"

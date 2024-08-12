@@ -44,7 +44,7 @@ export const ProfilePicture = styled.div`
     justify-content: center;
     border: none;
     position: absolute;
-    bottom: 26%;
+    bottom: 45.5%;
     width: 36px;
     height: 36px;
     border-radius: 50%;

@@ -136,14 +136,14 @@ export default function Student({ match }) {
     <Container>
       <Title>{id ? 'Edit student' : 'New student'}</Title>
 
-      {id && (
+      {
         <ProfilePicture>
           {photo ? <img src={photo} alt={name} /> : <FaUserCircle size={180} />}
-          <Link to={`/files/${id}`}>
+          <Link to={`/photo/${id}`}>
             <FaEdit size={24} />
           </Link>
         </ProfilePicture>
-      )}
+      }
       <Form>
         <input
           type="text"

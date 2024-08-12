@@ -73,7 +73,7 @@ export default function Students() {
           <div key={String(student.id)}>
             <ProfilePicture>
               {get(student, 'Files[0].url', false) ? (
-                <img src={student.Files[0].url} alt="" />
+                <img src={student.Files[0].url} />
               ) : (
                 <FaUserCircle size={36} />
               )}

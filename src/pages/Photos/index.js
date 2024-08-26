@@ -59,7 +59,7 @@ export default function Photos({ match }) {
         },
       });
 
-      toast.success('Photo send with success');
+      toast.success('Photo was send with success');
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

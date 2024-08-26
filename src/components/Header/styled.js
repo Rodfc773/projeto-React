@@ -7,15 +7,21 @@ export const Nav = styled.nav`
   margin: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
-
   a {
     color: #fff;
     margin: 0px 10px;
     font-weight: bold;
   }
+  p {
+    font-size: 20px;
+    display: inline-block;
+  }
 `;
-export const LeftDiv = styled.div`
-  width: 80%;
+export const RightDiv = styled.div`
+  width: 50%;
+  text-align: right;
+  padding: 0px 20px;
+  margin: 0px 10px;
 `;

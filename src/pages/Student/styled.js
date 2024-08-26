@@ -24,3 +24,29 @@ export const Title = styled.h1`
   text-align: center;
   margin-bottom: 10 px;
 `;
+
+export const ProfilePicture = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 20px;
+  margin-top: 30px;
+
+  img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: absolute;
+    bottom: 45.5%;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+`;

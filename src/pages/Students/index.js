@@ -73,7 +73,7 @@ export default function Students() {
           <div key={String(student.id)}>
             <ProfilePicture>
               {get(student, 'Files[0].url', false) ? (
-                <img src={student.Files[0].url} alt="" />
+                <img src={student.Files[0].url} />
               ) : (
                 <FaUserCircle size={36} />
               )}
@@ -81,14 +81,14 @@ export default function Students() {
             <span>{student.nome}</span>
             <span>{student.sobrenome}</span>
 
-            <Link to={`/student/edit/:id`}>
+            <Link to={`/student/edit/${student.id}`}>
               <FaEdit size={16} />
             </Link>
             <Link
               onClick={handleFirstStepDelete}
               to={`/student/${student.id}/delete`}
             >
-              <FaWindowClose size={16} />
+              <FaWindowClose size={16} color="red" />
             </Link>
 
             <FaExclamation
